@@ -1,0 +1,28 @@
+[package]
+name = "triangular"
+description = "A Delauney triangulation library"
+repository = "https://github.com/pepijnd/triangular"
+homepage = "https://github.com/pepijnd/triangular"
+documentation = "https://docs.rs/triangular"
+version = "0.1.0"
+authors = ["Pepijn Dragt <pepijn.dragt@gmail.com>"]
+edition = "2018"
+license = "MIT"
+keywords = ["Delauney", "triangulation", "graphics"]
+categories = ["algorithms", "graphics"]
+
+[lib]
+bench = false
+
+[[bench]]
+name = "triangulation"
+harness = false
+
+[dependencies]
+cgmath = { version = "0.17.0", default-features = false }
+smallvec = "1.4.0"
+
+[dev-dependencies]
+rand = { version = "0.7.3", default-features = false }
+criterion = "0.3.1"
+
