@@ -9,7 +9,7 @@ fn triangulate(points: &[(f64, f64)]) {
     let t =
         Triangulation::new(points)
             .with_bounds((0.0, 0.0), (50.0, 50.0));
-    t.build::<usize>();
+    t.build();
 }
 
 fn benchmarks(c: &mut Criterion) {

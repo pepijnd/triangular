@@ -10,7 +10,7 @@
 //!                   (0.1, 0.6),
 //!                   (0.4, 0.8)];
 //! 
-//! let triangles = Triangulation::new(&points).build::<usize>();
+//! let triangles = Triangulation::new(&points).build();
 //! assert_eq!(&*triangles, &[2, 1, 0]);
 //! ```
 
@@ -167,9 +167,7 @@ where
         self.edges = [None; 3];
     }
 
-    fn indices<I>(&self) -> SmallVec<[I; 3]>
-    where
-        I: From<usize>,
+    fn indices(&self) -> SmallVec<[usize; 3]>
     {
         smallvec![
             self.a.get_index().into(),
@@ -431,7 +429,7 @@ where
     ///
     /// let triangles = Triangulation::new(&points)
     ///                     .with_bounds((0.0, 0.0), (2.0, 2.0))
-    ///                     .build::<usize>();
+    ///                     .build();
     /// assert_eq!(&*triangles, &[2, 1, 0]);
     /// ```
     pub fn with_bounds(mut self, c1: V, c2: V) -> Self {
@@ -451,7 +449,7 @@ where
     ///
     /// let triangles = Triangulation::new(&points)
     ///                     .with_max_len(0.1)
-    ///                     .build::<usize>();
+    ///                     .build();
     /// assert_eq!(&*triangles, &[]);
     /// ```
     pub fn with_max_len(mut self, max_len: T) -> Self {
@@ -469,11 +467,9 @@ where
     ///                   (0.8, 1.6)];
     ///
     /// let triangles = Triangulation::new(&points)
-    ///                     .build::<usize>();
+    ///                     .build();
     /// ```
-    pub fn build<I>(self) -> Box<[I]>
-    where
-        I: From<usize>,
+    pub fn build(self) -> Box<[usize]>
     {
         let bounds: Vec<Vector2<T>> = if let Some(bounds) = self.bounds {
             vec![
@@ -519,7 +515,7 @@ where
             }
         }
 
-        let output: Vec<I> = store
+        let output: Vec<usize> = store
             .store
             .iter()
             .filter(|x| {
@@ -592,7 +588,7 @@ mod test {
             .map(|_| (rng.gen_range(0.0, 1.0), rng.gen_range(0.0, 1.0)))
             .collect();
         let trianglution = Triangulation::new(&points);
-        let t = trianglution.with_bounds((0.0, 0.0), (1.0, 1.0)).build::<usize>();
+        let t = trianglution.with_bounds((0.0, 0.0), (1.0, 1.0)).build();
 
         assert_eq!(t.len(), 14508);
     }
